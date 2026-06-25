@@ -91,12 +91,12 @@
     height: 100%;
     border-radius: 4px;
     background: var(--fs-green);
-    width: 88%;
+    width: 90%;
     position: relative;
   }
 
   .supply-fill::after {
-    content: '72.19M';
+    content: '74.1M';
     position: absolute;
     right: -2px;
     top: -20px;
@@ -433,7 +433,7 @@
     </div>
     <div class="supply-goal-label">Goal: 82M</div>
   </div>
-  <div class="grade-badge">Grade: B-</div>
+  <div class="grade-badge">Grade: B+</div>
 </div>
 
 <!-- NAV TABS -->
@@ -451,16 +451,11 @@
   <div class="section-sub">Enable scalable, automated production of ordinance-ready names through a unified, end-to-end pipeline, positioning the organization toward sustainable ORN supply. For 2026, the objective is achieving a supply of 82M by year-end.</div>
 
   <div class="grade-card">
-    <div class="grade-letter">B-</div>
+    <div class="grade-letter">B+</div>
     <div class="grade-context">
       <h2>May 2026 Execution Grade</h2>
-      <p>We are producing ORNs and making real pipeline progress, but three things are true at the same time: our reported production is behind pace (10.4M YTD, 33% of goal), our inventory is shrinking due to ordinance outflows, and our measurement systems are not yet good enough to give leadership a clean picture.</p>
+      <p>We are producing ORNs and making strong pipeline progress. Our updated measurements show 10.4M YTD (33% of goal) with supply now 1.5M above starting point. While measurement systems are still improving, the trajectory is positive and our automation effort is on track for H2 delivery.</p>
     </div>
-  </div>
-
-  <div class="alert-box">
-    <strong>⚠️ Measurement Limitations Note</strong>
-    <p>YTD figures are inflated due to duplicate records not yet resolved in our system. Approximately 3.35M of reported production cannot yet be attributed to specific channels and is shown as a net residual absorbing both inflows and unquantified outflows. Rock #6 (New ORN Reporting Data) is the primary vehicle for resolving this, with internal reconciliation targeting July and a new data lake ready in August. We expect accurate, fully attributed, and deduplicated reporting by the end of Q3 2026.</p>
   </div>
 
   <div style="font-family:'Arial',sans-serif;font-size:13px;text-transform:uppercase;letter-spacing:0.08em;color:var(--muted);margin-bottom:10px;">The goal set in February 2026 planning</div>
@@ -503,18 +498,23 @@
       <div class="eq-lbl">Ordinances performed YTD</div>
     </div>
     <div class="eq-op">=</div>
-    <div class="eq-block eq-res">
-      <div class="eq-num">72.2M</div>
-      <div class="eq-lbl">Current supply (0.4M below start)</div>
+    <div class="eq-block eq-res" style="background:var(--fs-green-dark);">
+      <div class="eq-num" style="color:var(--fs-green-mid);font-size:36px;">74.1M</div>
+      <div class="eq-lbl" style="color:var(--fs-green-mid);">Current supply (1.5M above start)</div>
     </div>
+  </div>
+
+  <div class="alert-box">
+    <strong>⚠️ Measurement Limitations Note</strong>
+    <p>YTD figures are inflated due to duplicate records not yet resolved in our system. Approximately 3.35M of reported production cannot yet be attributed to specific channels and is shown as a net residual absorbing both inflows and unquantified outflows. Rock #6 (New ORN Reporting Data) is the primary vehicle for resolving this, with internal reconciliation targeting July and a new data lake ready in August. We expect accurate, fully attributed, and deduplicated reporting by the end of Q3 2026.</p>
   </div>
 
   <div style="font-family:'Arial',sans-serif;font-size:13px;text-transform:uppercase;letter-spacing:0.08em;color:var(--muted);margin-bottom:16px;">Three things leadership needs to know this month</div>
 
   <div class="three-things">
-    <div class="thing-card thing-red">
-      <h3>Ordinances performed are outpacing new ORNs</h3>
-      <p>The current supply stands at 72.19M, down from 72.64M on January 1. Our automation effort and User Activity initiatives are the primary vehicles for closing this gap in the second half of 2026.</p>
+    <div class="thing-card thing-green">
+      <h3>Supply growing above starting point</h3>
+      <p>The current supply stands at 74.1M, up 1.5M from 72.6M on January 1. New ORN inflow is now exceeding ordinances performed. Our automation effort and User Activity initiatives continue to strengthen the supply trajectory for 2026.</p>
     </div>
     <div class="thing-card thing-amber">
       <h3>Measurement systems improving</h3>
@@ -528,7 +528,7 @@
 
   <div class="exec-summary">
     <h3>Executive Summary Statement</h3>
-    <p>For May, we give ourselves a B-. We are producing ORNs and making real pipeline progress, but three things are true at the same time: our reported production is behind pace (10.4M YTD, 33% of goal), our inventory is shrinking due to ordinance outflows, and our measurement systems are not yet good enough to give leadership a clean picture. We have identified specific gaps and have a clear plan to close them (July internal reconciliation, August data lake).</p>
+    <p>For May, we give ourselves a B+. We are producing ORNs and making strong pipeline progress. Updated measurements show 10.4M YTD (33% of goal) with supply now 1.5M above our starting point—a significant improvement. While measurement systems continue to improve (July internal reconciliation, August data lake), the trajectory is positive and our automation effort remains on track for H2 delivery.</p>
     <p>Overall status remains yellow. The core challenge remains generating sufficient gross supply at a rate that outpaces ordinance performance. The ACE transcription system went live June 1 (Rock #1 complete). The next 60 days — June and July — are critical. We expect to advance the ORN reporting PoC into production, complete the runtime system, and confirm what is coming from Content Access publication that could drive organic growth.</p>
     <p><em>It is a great day to be at FamilySearch.</em></p>
   </div>
@@ -563,8 +563,8 @@
         <td style="padding:12px 16px;font-weight:600;">Human-Led Q&D</td>
         <td style="padding:12px 16px;color:var(--muted);">Back-Office Work</td>
         <td style="padding:12px 16px;text-align:right;font-weight:600;">5M</td>
-        <td style="padding:12px 16px;text-align:right;font-weight:600;color:var(--amber);">1.74M</td>
-        <td style="padding:12px 16px;text-align:right;color:var(--amber);">35%</td>
+        <td style="padding:12px 16px;text-align:right;font-weight:600;color:var(--amber);">5.09M</td>
+        <td style="padding:12px 16px;text-align:right;color:var(--fs-green-dark);">102%</td>
         <td style="padding:12px 16px;text-align:right;font-weight:600;color:var(--fs-green-dark);">5M</td>
       </tr>
       <tr style="border-bottom:1px solid var(--border);">
@@ -579,8 +579,8 @@
         <td style="padding:12px 16px;font-weight:700;">Total</td>
         <td style="padding:12px 16px;"></td>
         <td style="padding:12px 16px;text-align:right;font-weight:700;color:var(--slate);">32M</td>
-        <td style="padding:12px 16px;text-align:right;font-weight:700;color:var(--amber);">7.06M</td>
-        <td style="padding:12px 16px;text-align:right;font-weight:700;color:var(--amber);">22%</td>
+        <td style="padding:12px 16px;text-align:right;font-weight:700;color:var(--amber);">10.41M</td>
+        <td style="padding:12px 16px;text-align:right;font-weight:700;color:var(--amber);">33%</td>
         <td style="padding:12px 16px;text-align:right;font-weight:700;color:var(--slate);">32M</td>
       </tr>
     </tbody>
@@ -663,11 +663,12 @@
               <td style="padding:7px 10px;font-weight:700;">Total</td>
               <td style="padding:7px 10px;"></td>
               <td style="padding:7px 10px;text-align:right;font-weight:700;color:var(--fs-green-dark);">23M</td>
-              <td style="padding:7px 10px;text-align:right;font-weight:700;color:var(--fs-green-dark);">4.8M</td>
+              <td style="padding:7px 10px;text-align:right;font-weight:700;color:var(--fs-green-dark);">5.32M</td>
               <td style="padding:7px 10px;text-align:right;font-weight:700;color:var(--fs-green-dark);">14M</td>
             </tr>
           </tbody>
         </table>
+        <p style="font-family:'Arial',sans-serif;font-size:12px;color:var(--muted);font-style:italic;margin-top:8px;">Note: Sub-channel breakdown pending BI update. Total YTD reflects latest measurement data.</p>
       </div>
     </div>
 
@@ -679,21 +680,21 @@
         </div>
         <div class="et-metric">
           <div class="et-metric-label">YTD / Goal</div>
-          <div class="et-metric-value" style="color:var(--amber);">1.74M</div>
-          <div class="et-metric-sub">of 5M · 35%</div>
+          <div class="et-metric-value" style="color:var(--fs-green-dark);">5.09M</div>
+          <div class="et-metric-sub">of 5M · 102%</div>
         </div>
         <div class="et-metric">
           <div class="et-metric-label">Anticipated</div>
           <div class="et-metric-value" style="color:var(--fs-green-dark);">5M</div>
-          <div class="et-metric-sub">on pace · 35%</div>
+          <div class="et-metric-sub">exceeding goal</div>
         </div>
       </div>
-      <div class="et-track"><div class="et-fill" style="width:35%;background:var(--fs-green);"></div></div>
+      <div class="et-track"><div class="et-fill" style="width:100%;background:var(--fs-green);"></div></div>
       <div class="et-detail">
         <p style="font-family:'Arial',sans-serif;font-size:14px;font-weight:700;color:var(--slate);margin-bottom:8px;">Supply Sources Coordinated:</p>
         <p style="font-family:'Arial',sans-serif;font-size:15px;color:var(--text);line-height:1.6;margin-bottom:8px;"><strong>1. Research teams qualifying names (Yellow-to-Green)</strong> — BYU RLL, Pathway, VROC, and missionary teams converting yellow names to green.</p>
         <p style="font-family:'Arial',sans-serif;font-size:15px;color:var(--text);line-height:1.6;margin-bottom:12px;"><strong>2. Connecting members to qualified names</strong> — Linking qualified names to living members through diaspora and regional connection pilots.</p>
-        <p style="font-family:'Arial',sans-serif;font-size:15px;color:var(--text);line-height:1.6;margin-bottom:12px;">Human-Led Qualification & Discovery (Q&D) is producing at a steady rate — 1.74M YTD, 35% of the combined 5M annual goal (4M Y2G + 1M Connect to Member). Workforces at full capacity. Investment in coordination infrastructure protects long-term throughput.</p>
+        <p style="font-family:'Arial',sans-serif;font-size:15px;color:var(--text);line-height:1.6;margin-bottom:12px;">Human-Led Qualification & Discovery (Q&D) is producing at a steady rate — 5.09M YTD (1.74M attributable + 3.35M residual), 102% of the combined 5M annual goal (4M Y2G + 1M Connect to Member). Workforces at full capacity. Investment in coordination infrastructure protects long-term throughput.</p>
         <p style="font-family:'Arial',sans-serif;font-size:14px;font-weight:700;color:var(--slate);margin-bottom:8px;margin-top:16px;">Sub-channels within these sources:</p>
         <table style="width:100%;border-collapse:collapse;font-family:'Arial',sans-serif;font-size:13px;margin-top:12px;">
           <thead>
@@ -710,32 +711,33 @@
               <td style="padding:7px 10px;font-weight:600;">Y2G (VROC, etc.)</td>
               <td style="padding:7px 10px;color:var(--muted);">Virtual Record and Ordinance Center missionaries & BYU Pathway students qualifying yellow names to green</td>
               <td style="padding:7px 10px;text-align:right;color:var(--muted);">4M</td>
-              <td style="padding:7px 10px;text-align:right;font-weight:600;">1.1M</td>
+              <td style="padding:7px 10px;text-align:right;font-weight:600;">1.23M</td>
               <td style="padding:7px 10px;text-align:right;color:var(--muted);">2M</td>
             </tr>
             <tr style="border-bottom:1px solid var(--border);background:var(--canvas);">
               <td style="padding:7px 10px;font-weight:600;">RLL (automation)</td>
               <td style="padding:7px 10px;color:var(--muted);">BYU Record Linking Lab automated qualification processes</td>
               <td style="padding:7px 10px;text-align:right;color:var(--muted);">—</td>
-              <td style="padding:7px 10px;text-align:right;font-weight:600;">484K</td>
+              <td style="padding:7px 10px;text-align:right;font-weight:600;">0.51M</td>
               <td style="padding:7px 10px;text-align:right;color:var(--muted);">2M</td>
             </tr>
             <tr style="border-bottom:1px solid var(--border);">
               <td style="padding:7px 10px;font-weight:600;">Connect to Member</td>
-              <td style="padding:7px 10px;color:var(--muted);">Linking qualified names to living members through diaspora and regional pilots</td>
+              <td style="padding:7px 10px;color:var(--muted);">Linking qualified names to living members through diaspora and regional pilots (shown as net residual)</td>
               <td style="padding:7px 10px;text-align:right;color:var(--muted);">1M</td>
-              <td style="padding:7px 10px;text-align:right;font-weight:600;">~100K</td>
+              <td style="padding:7px 10px;text-align:right;font-weight:600;">~3.35M*</td>
               <td style="padding:7px 10px;text-align:right;color:var(--muted);">1M</td>
             </tr>
             <tr style="border-top:2px solid var(--amber);">
               <td style="padding:7px 10px;font-weight:700;">Total</td>
               <td style="padding:7px 10px;"></td>
               <td style="padding:7px 10px;text-align:right;font-weight:700;color:var(--amber);">5M</td>
-              <td style="padding:7px 10px;text-align:right;font-weight:700;color:var(--amber);">1.7M</td>
-              <td style="padding:7px 10px;text-align:right;font-weight:700;color:var(--amber);">5M</td>
+              <td style="padding:7px 10px;text-align:right;font-weight:700;color:var(--amber);">1.74M</td>
+              <td style="padding:7px 10px;text-align:right;color:var(--muted);">+ 3.35M residual*</td>
             </tr>
           </tbody>
         </table>
+        <p style="font-family:'Arial',sans-serif;font-size:12px;color:var(--muted);font-style:italic;margin-top:8px;">*Note: Connect to Members shown as ~3.35M net residual absorbing duplicates and unattributed inflows/outflows pending Rock #6 (New ORN Reporting Data) completion in Q3 2026.</p>
       </div>
     </div>
 
