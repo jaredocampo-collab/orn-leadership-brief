@@ -1,0 +1,1217 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>ORN SOC — June 2026 Leadership Brief</title>
+<style>
+  :root {
+    --fs-green: #3C7A3E;
+    --fs-green-dark: #2A5A2C;
+    --fs-green-light: #EBF4EB;
+    --fs-green-mid: #C4E0C5;
+    --slate: #1F2E3C;
+    --slate-mid: #2E4057;
+    --slate-light: #F0F3F7;
+    --amber: #C07A1A;
+    --amber-light: #FDF3E3;
+    --amber-mid: #F4C36A;
+    --red: #B53A2F;
+    --red-light: #FDECEA;
+    --blue: #1A5C8A;
+    --blue-light: #E6F1FA;
+    --white: #FFFFFF;
+    --canvas: #F7F8FA;
+    --border: #D8DDE6;
+    --text: #1F2E3C;
+    --muted: #6B7A8D;
+  }
+
+  *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+
+  body {
+    font-family: 'Georgia', serif;
+    background: var(--canvas);
+    color: var(--text);
+    font-size: 18px;
+    line-height: 1.65;
+    min-height: 100vh;
+  }
+
+  /* TOP BAR */
+  .top-bar {
+    position: sticky;
+    top: 0;
+    z-index: 100;
+    background: var(--slate);
+    color: white;
+    padding: 0 32px;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    height: 64px;
+    border-bottom: 3px solid var(--fs-green);
+  }
+
+  .top-bar-brand {
+    font-family: 'Arial', sans-serif;
+    font-size: 14px;
+    letter-spacing: 0.08em;
+    text-transform: uppercase;
+    color: rgba(255,255,255,0.55);
+  }
+
+  .supply-meter {
+    display: flex;
+    align-items: center;
+    gap: 12px;
+    flex: 1;
+    justify-content: center;
+    padding: 0 20px;
+  }
+
+  .supply-label {
+    font-family: 'Arial', sans-serif;
+    font-size: 13px;
+    text-transform: uppercase;
+    letter-spacing: 0.08em;
+    color: rgba(255,255,255,0.45);
+  }
+
+  .supply-track {
+    flex: 1;
+    max-width: 320px;
+    height: 8px;
+    background: rgba(255,255,255,0.15);
+    border-radius: 4px;
+    position: relative;
+  }
+
+  .supply-fill {
+    height: 100%;
+    border-radius: 4px;
+    background: var(--fs-green);
+    width: 90%;
+    position: relative;
+  }
+
+  .supply-fill::after {
+    content: '74.1M';
+    position: absolute;
+    right: -2px;
+    top: -20px;
+    font-family: 'Arial', sans-serif;
+    font-size: 12px;
+    color: #7EC980;
+  }
+
+  .supply-goal-label {
+    font-family: 'Arial', sans-serif;
+    font-size: 15px;
+    font-weight: bold;
+    color: rgba(255,255,255,0.7);
+  }
+
+  .grade-badge {
+    font-family: 'Arial', sans-serif;
+    font-size: 14px;
+    font-weight: 700;
+    background: var(--amber);
+    color: white;
+    padding: 5px 14px;
+    border-radius: 4px;
+    letter-spacing: 0.05em;
+  }
+
+  /* NAV TABS */
+  .nav-tabs {
+    background: white;
+    border-bottom: 1px solid var(--border);
+    display: flex;
+    overflow-x: auto;
+    padding: 0 24px;
+    gap: 0;
+  }
+
+  .nav-tab {
+    font-family: 'Arial', sans-serif;
+    font-size: 14px;
+    font-weight: 600;
+    letter-spacing: 0.04em;
+    text-transform: uppercase;
+    color: var(--muted);
+    padding: 18px 20px 15px;
+    border-bottom: 3px solid transparent;
+    cursor: pointer;
+    white-space: nowrap;
+    transition: color 0.15s, border-color 0.15s;
+    user-select: none;
+    background: none;
+    border-left: none;
+    border-right: none;
+    border-top: none;
+  }
+
+  .nav-tab:hover { color: var(--fs-green); }
+  .nav-tab.active { color: var(--fs-green-dark); border-bottom-color: var(--fs-green); }
+
+  /* SECTION PANELS */
+  .section-panel { display: none; padding: 36px 32px 80px; max-width: 1100px; margin: 0 auto; }
+  .section-panel.active { display: block; }
+
+  /* EXECUTIVE SUMMARY */
+  .grade-card {
+    background: white;
+    border: 1px solid var(--border);
+    border-radius: 8px;
+    padding: 24px 28px;
+    margin-bottom: 24px;
+    display: flex;
+    align-items: center;
+    gap: 24px;
+  }
+
+  .grade-letter {
+    font-size: 72px;
+    font-weight: normal;
+    color: var(--amber);
+    line-height: 1;
+  }
+
+  .grade-context h2 {
+    font-size: 24px;
+    font-weight: normal;
+    color: var(--slate);
+    margin-bottom: 6px;
+  }
+
+  .grade-context p {
+    font-family: 'Arial', sans-serif;
+    font-size: 15px;
+    color: var(--muted);
+    line-height: 1.6;
+  }
+
+  .alert-box {
+    background: var(--amber-light);
+    border-left: 4px solid var(--amber);
+    padding: 16px 20px;
+    border-radius: 0 6px 6px 0;
+    margin-bottom: 24px;
+  }
+
+  .alert-box strong {
+    font-family: 'Arial', sans-serif;
+    font-size: 12px;
+    text-transform: uppercase;
+    letter-spacing: 0.08em;
+    color: var(--amber);
+    display: block;
+    margin-bottom: 8px;
+  }
+
+  .alert-box p {
+    font-family: 'Arial', sans-serif;
+    font-size: 15px;
+    line-height: 1.6;
+    color: var(--text);
+  }
+
+  .eq-row {
+    display: grid;
+    grid-template-columns: 1fr 40px 1fr 40px 1fr 40px 1fr;
+    gap: 0;
+    margin-bottom: 24px;
+  }
+
+  .eq-block {
+    padding: 20px 14px;
+    text-align: center;
+    border-radius: 6px;
+  }
+
+  .eq-op {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 26px;
+    color: var(--muted);
+    font-family: 'Arial', sans-serif;
+  }
+
+  .eq-num { font-size: 32px; font-weight: normal; line-height: 1; margin-bottom: 6px; }
+  .eq-lbl { font-family: 'Arial', sans-serif; font-size: 13px; opacity: 0.8; line-height: 1.3; }
+
+  .eq-start { background: var(--blue-light); }
+  .eq-start .eq-num { color: var(--blue); }
+  .eq-start .eq-lbl { color: var(--blue); }
+
+  .eq-in { background: var(--amber-light); }
+  .eq-in .eq-num { color: var(--amber); }
+  .eq-in .eq-lbl { color: var(--amber); }
+
+  .eq-out { background: var(--red-light); }
+  .eq-out .eq-num { color: var(--red); }
+  .eq-out .eq-lbl { color: var(--red); }
+
+  .eq-res { background: var(--red); }
+  .eq-res .eq-num { color: #FDECEA; font-size: 36px; }
+  .eq-res .eq-lbl { color: #F9BFBB; }
+
+  .three-things { display: grid; grid-template-columns: 1fr 1fr 1fr; gap: 16px; margin: 24px 0; }
+  .thing-card { padding: 20px 22px; border-radius: 6px; border-left: 5px solid; }
+  .thing-card h3 { font-family: 'Arial', sans-serif; font-size: 13px; font-weight: 700; text-transform: uppercase; letter-spacing: 0.06em; margin-bottom: 10px; }
+  .thing-card p { font-family: 'Arial', sans-serif; font-size: 15px; line-height: 1.6; }
+
+  .thing-red { background: var(--red-light); border-color: var(--red); }
+  .thing-red h3 { color: var(--red); }
+  .thing-amber { background: var(--amber-light); border-color: var(--amber); }
+  .thing-amber h3 { color: var(--amber); }
+  .thing-green { background: var(--fs-green-light); border-color: var(--fs-green); }
+  .thing-green h3 { color: var(--fs-green-dark); }
+
+  .exec-summary {
+    background: var(--slate);
+    color: white;
+    border-radius: 6px;
+    padding: 24px 28px;
+    border-left: 5px solid var(--amber);
+    margin-top: 24px;
+  }
+
+  .exec-summary h3 {
+    font-family: 'Arial', sans-serif;
+    font-size: 12px;
+    font-weight: 700;
+    text-transform: uppercase;
+    letter-spacing: 0.08em;
+    color: var(--amber-mid);
+    margin-bottom: 12px;
+  }
+
+  .exec-summary p {
+    font-family: 'Arial', sans-serif;
+    font-size: 16px;
+    line-height: 1.65;
+    color: rgba(255,255,255,0.85);
+    margin-bottom: 12px;
+  }
+
+  .exec-summary p:last-child { margin-bottom: 0; }
+
+  /* ET CARDS */
+  .et-list { display: flex; flex-direction: column; gap: 12px; }
+  .et-card { background: white; border: 1px solid var(--border); border-radius: 8px; padding: 20px 24px; cursor: pointer; transition: box-shadow 0.15s; }
+  .et-card:hover { box-shadow: 0 2px 10px rgba(0,0,0,0.1); }
+  .et-card.expanded { border-color: var(--fs-green); box-shadow: 0 2px 14px rgba(60,122,62,0.15); }
+
+  .et-header { display: grid; grid-template-columns: 1fr 140px 140px; gap: 20px; align-items: center; }
+  .et-name { font-size: 18px; color: var(--slate); }
+  .et-type { font-family: 'Arial', sans-serif; font-size: 13px; color: var(--muted); margin-top: 3px; }
+
+  .et-metric { text-align: right; }
+  .et-metric-label { font-family: 'Arial', sans-serif; font-size: 11px; text-transform: uppercase; letter-spacing: 0.06em; color: var(--muted); margin-bottom: 4px; }
+  .et-metric-value { font-size: 24px; line-height: 1; }
+  .et-metric-sub { font-family: 'Arial', sans-serif; font-size: 12px; color: var(--muted); margin-top: 3px; }
+
+  .et-track { height: 12px; background: var(--border); border-radius: 6px; overflow: hidden; margin: 12px 0; }
+  .et-fill { height: 100%; border-radius: 6px; }
+
+  .et-detail { display: none; border-top: 1px solid var(--border); margin-top: 14px; padding-top: 16px; }
+  .et-card.expanded .et-detail { display: block; }
+
+  .subsource-list { margin-top: 12px; }
+  .subsource-item { padding: 8px 12px; background: var(--canvas); border-radius: 4px; margin-bottom: 6px; display: flex; justify-content: space-between; align-items: center; }
+  .subsource-name { font-family: 'Arial', sans-serif; font-size: 14px; color: var(--text); }
+  .subsource-value { font-family: 'Arial', sans-serif; font-size: 14px; font-weight: 700; color: var(--fs-green-dark); }
+
+  /* BIG ROCKS */
+  .milestone-timeline { margin: 0 0 24px; }
+  .mt-label { font-family: 'Arial', sans-serif; font-size: 13px; text-transform: uppercase; letter-spacing: 0.08em; color: var(--muted); margin-bottom: 14px; }
+  .mt-track { display: flex; gap: 0; position: relative; background: white; border: 1px solid var(--border); border-radius: 8px; padding: 24px; }
+  .mt-track::before { content: ''; position: absolute; left: 24px; right: 24px; top: 42px; height: 3px; background: var(--border); z-index: 0; }
+  .mt-item { flex: 1; text-align: center; position: relative; z-index: 1; }
+  .mt-dot { width: 18px; height: 18px; border-radius: 50%; border: 3px solid white; margin: 9px auto 8px; }
+  .mt-dot-done { background: var(--fs-green); }
+  .mt-dot-near { background: var(--amber); }
+  .mt-dot-far { background: var(--border); }
+  .mt-month { font-family: 'Arial', sans-serif; font-size: 14px; font-weight: 700; color: var(--slate); }
+  .mt-events { font-family: 'Arial', sans-serif; font-size: 12px; color: var(--muted); line-height: 1.5; margin-top: 4px; }
+
+  .rock-list { display: flex; flex-direction: column; gap: 10px; }
+  .rock-card { background: white; border: 1px solid var(--border); border-radius: 8px; overflow: hidden; cursor: pointer; transition: box-shadow 0.15s; }
+  .rock-card:hover { box-shadow: 0 2px 10px rgba(0,0,0,0.1); }
+  .rock-header { display: grid; grid-template-columns: 14px 1fr 120px; gap: 16px; padding: 18px 20px; align-items: center; }
+  .rock-stripe { width: 5px; height: 100%; border-radius: 3px; align-self: stretch; }
+  .rock-title { font-size: 18px; color: var(--slate); }
+  .rock-subtitle { font-family: 'Arial', sans-serif; font-size: 12px; color: var(--muted); margin-top: 3px; }
+  .rock-status { text-align: right; }
+  .rock-status-badge { font-family: 'Arial', sans-serif; font-size: 11px; font-weight: 700; padding: 4px 10px; border-radius: 10px; text-transform: uppercase; letter-spacing: 0.05em; display: inline-block; white-space: nowrap; }
+
+  .status-green { background: var(--fs-green-light); color: var(--fs-green-dark); }
+  .status-amber { background: var(--amber-light); color: var(--amber); }
+  .status-red { background: var(--red-light); color: var(--red); }
+
+  .rock-body { display: none; border-top: 1px solid var(--border); padding: 18px 20px; background: var(--canvas); }
+  .rock-card.open .rock-body { display: block; }
+  .rock-body p { font-family: 'Arial', sans-serif; font-size: 15px; line-height: 1.7; color: var(--text); margin-bottom: 12px; }
+  .rock-body p:last-child { margin-bottom: 0; }
+
+  /* SUPPORT NEEDED */
+  .dep-list { display: flex; flex-direction: column; gap: 10px; }
+  .dep-card { background: white; border: 1px solid var(--border); border-radius: 8px; cursor: pointer; transition: box-shadow 0.15s; }
+  .dep-card:hover { box-shadow: 0 2px 10px rgba(0,0,0,0.1); }
+  .dep-card.expanded { border-color: var(--fs-green); box-shadow: 0 2px 14px rgba(60,122,62,0.15); }
+  .dep-header { display: flex; justify-content: space-between; align-items: start; padding: 20px 24px; }
+  .dep-header-content { flex: 1; }
+  .dep-name { font-size: 18px; color: var(--slate); margin-bottom: 5px; }
+  .dep-owner { font-family: 'Arial', sans-serif; font-size: 13px; color: var(--muted); margin-bottom: 10px; }
+  .dep-need-preview { font-family: 'Arial', sans-serif; font-size: 14px; font-weight: 600; color: var(--slate); }
+
+  .dep-priority { font-family: 'Arial', sans-serif; font-size: 12px; font-weight: 700; padding: 5px 12px; border-radius: 12px; text-transform: uppercase; letter-spacing: 0.05em; white-space: nowrap; align-self: start; }
+  .priority-critical { background: var(--red-light); color: var(--red); }
+  .priority-high { background: var(--amber-light); color: var(--amber); }
+  .priority-partnership { background: var(--blue-light); color: var(--blue); }
+  .priority-ontrack { background: var(--fs-green-light); color: var(--fs-green-dark); }
+
+  .dep-detail { display: none; border-top: 1px solid var(--border); padding: 18px 24px; background: var(--canvas); }
+  .dep-card.expanded .dep-detail { display: block; }
+  .dep-what { font-family: 'Arial', sans-serif; font-size: 15px; color: var(--text); line-height: 1.6; margin-bottom: 12px; }
+  .dep-consequence { font-family: 'Arial', sans-serif; font-size: 14px; font-style: italic; padding: 12px 16px; background: var(--amber-light); border-left: 4px solid var(--amber); border-radius: 0 4px 4px 0; margin-bottom: 12px; }
+  .dep-need { font-family: 'Arial', sans-serif; font-size: 14px; font-weight: 600; color: var(--slate); }
+
+  .summary-table { width: 100%; border-collapse: collapse; margin-top: 24px; background: white; border: 1px solid var(--border); border-radius: 8px; overflow: hidden; }
+  .summary-table th { font-family: 'Arial', sans-serif; font-size: 12px; font-weight: 700; text-transform: uppercase; letter-spacing: 0.06em; color: var(--slate); text-align: left; padding: 12px 16px; background: var(--slate-light); border-bottom: 2px solid var(--border); }
+  .summary-table td { font-family: 'Arial', sans-serif; font-size: 14px; padding: 12px 16px; border-bottom: 1px solid var(--border); }
+  .summary-table tr:last-child td { border-bottom: none; }
+
+  /* PROJECT PRIORITIES */
+  .priority-section { margin-bottom: 16px; }
+  .priority-card { background: white; border: 1px solid var(--border); border-radius: 8px; cursor: pointer; transition: box-shadow 0.15s, border-color 0.15s; }
+  .priority-card:hover { box-shadow: 0 2px 10px rgba(0,0,0,0.1); }
+  .priority-card.expanded { border-color: var(--fs-green); box-shadow: 0 2px 14px rgba(60,122,62,0.15); }
+  .priority-header { display: flex; justify-content: space-between; align-items: start; padding: 18px 24px; }
+  .priority-header-left { flex: 1; }
+  .priority-title { font-family: 'Arial', sans-serif; font-size: 18px; font-weight: 700; color: var(--slate); }
+  .priority-count { font-family: 'Arial', sans-serif; font-size: 14px; color: var(--muted); margin-left: 8px; font-weight: 600; }
+  .priority-desc { font-family: 'Arial', sans-serif; font-size: 14px; color: var(--muted); margin-top: 6px; line-height: 1.5; }
+  .priority-arrow { font-family: 'Arial', sans-serif; font-size: 18px; color: var(--muted); transition: transform 0.2s; user-select: none; }
+  .priority-card.expanded .priority-arrow { transform: rotate(180deg); }
+  .priority-list { display: none; border-top: 1px solid var(--border); padding: 18px 24px; background: var(--canvas); }
+  .priority-card.expanded .priority-list { display: block; }
+  .priority-list ul { list-style: none; }
+  .priority-list li { font-family: 'Arial', sans-serif; font-size: 15px; line-height: 1.7; color: var(--text); padding: 8px 0; border-bottom: 1px solid var(--border); }
+  .priority-list li:last-child { border-bottom: none; }
+
+  /* SHARED */
+  .section-title { font-size: 28px; font-weight: normal; color: var(--slate); margin-bottom: 8px; }
+  .section-sub { font-family: 'Arial', sans-serif; font-size: 16px; color: var(--muted); margin-bottom: 24px; line-height: 1.6; }
+  .tap-hint { font-family: 'Arial', sans-serif; font-size: 12px; color: var(--muted); text-align: right; margin-bottom: 10px; font-style: italic; }
+
+  @media (max-width: 768px) {
+    .top-bar { padding: 0 16px; height: 56px; }
+    .supply-meter { display: none; }
+    .section-panel { padding: 20px 16px 60px; }
+    .three-things { grid-template-columns: 1fr; }
+    .eq-row { grid-template-columns: 1fr 24px 1fr 24px 1fr 24px 1fr; }
+    .eq-num { font-size: 20px; }
+    .eq-lbl { font-size: 11px; }
+    .et-header { grid-template-columns: 1fr 100px; }
+    .et-header .et-metric:nth-child(3) { display: none; }
+  }
+</style>
+</head>
+<body>
+
+<!-- TOP BAR -->
+<div class="top-bar">
+  <div class="top-bar-brand">ORN SOC · June 2026</div>
+  <div class="supply-meter">
+    <div class="supply-label">Supply</div>
+    <div class="supply-track">
+      <div class="supply-fill"></div>
+    </div>
+    <div class="supply-goal-label">Goal: 82M</div>
+  </div>
+  <div class="grade-badge">Grade: B+</div>
+</div>
+
+<!-- NAV TABS -->
+<nav class="nav-tabs">
+  <button class="nav-tab active" onclick="showSection('s1')">Executive Summary</button>
+  <button class="nav-tab" onclick="showSection('s2')">Supply Sources</button>
+  <button class="nav-tab" onclick="showSection('s3')">Big Rocks & Progress</button>
+  <button class="nav-tab" onclick="showSection('s4')">Support Needed</button>
+  <button class="nav-tab" onclick="showSection('s5')">Project Priorities</button>
+</nav>
+
+<!-- SECTION 1: EXECUTIVE SUMMARY -->
+<div id="s1" class="section-panel active">
+  <div class="section-title">ORN SOC — June 2026 Leadership Brief</div>
+  <div class="section-sub">Enable scalable, automated production of ordinance-ready names through a unified, end-to-end pipeline, positioning the organization toward sustainable ORN supply. For 2026, the objective is achieving a supply of 82M by year-end.</div>
+
+  <div class="grade-card">
+    <div class="grade-letter">B+</div>
+    <div class="grade-context">
+      <h2>May 2026 Execution Grade</h2>
+      <p>We are producing ORNs and making strong pipeline progress. Our updated measurements show 10.4M YTD (33% of goal) with supply now 1.5M above starting point. While measurement systems are still improving, the trajectory is positive and our automation effort is on track for Q3 delivery.</p>
+    </div>
+  </div>
+
+  <div style="background:white;border:1px solid var(--border);border-radius:8px;padding:20px;margin-bottom:24px;">
+    <img src="ORN_chart.png" alt="NET NEW ORDINANCE-READY NAMES - Monthly trends and YTD progress" style="width:100%;height:auto;display:block;border-radius:4px;">
+    <div style="font-family:'Arial',sans-serif;font-size:13px;color:var(--muted);margin-top:12px;text-align:center;font-style:italic;">Figure 1. May 2026 ORN SOC Results (YTD)</div>
+  </div>
+
+  <div style="font-family:'Arial',sans-serif;font-size:13px;text-transform:uppercase;letter-spacing:0.08em;color:var(--muted);margin-bottom:10px;">The goal set in February 2026 planning</div>
+  <div class="eq-row">
+    <div class="eq-block eq-start">
+      <div class="eq-num">72.6M</div>
+      <div class="eq-lbl">2025 ending supply · January 1 starting point</div>
+    </div>
+    <div class="eq-op">+</div>
+    <div class="eq-block eq-in" style="background:var(--fs-green-light);">
+      <div class="eq-num" style="color:var(--fs-green-dark);">32M</div>
+      <div class="eq-lbl" style="color:var(--fs-green);">New ORNs to add · 2026 annual goal</div>
+    </div>
+    <div class="eq-op">−</div>
+    <div class="eq-block eq-out">
+      <div class="eq-num">22M</div>
+      <div class="eq-lbl">Ordinances projected to be performed</div>
+    </div>
+    <div class="eq-op">=</div>
+    <div class="eq-block" style="background:var(--fs-green-dark);">
+      <div class="eq-num" style="color:var(--fs-green-mid);font-size:36px;">82M</div>
+      <div class="eq-lbl" style="color:var(--fs-green-mid);">Year-end supply goal</div>
+    </div>
+  </div>
+
+  <div style="font-family:'Arial',sans-serif;font-size:13px;text-transform:uppercase;letter-spacing:0.08em;color:var(--muted);margin-bottom:10px;margin-top:24px;">Where we stand — May 31, 2026</div>
+  <div class="eq-row">
+    <div class="eq-block eq-start">
+      <div class="eq-num">72.6M</div>
+      <div class="eq-lbl">January 1, 2026 starting supply</div>
+    </div>
+    <div class="eq-op">+</div>
+    <div class="eq-block eq-in">
+      <div class="eq-num">10.41M</div>
+      <div class="eq-lbl">Added YTD · 33% of 32M goal<br><span style="font-size:12px;margin-top:4px;display:block;opacity:0.95;font-weight:600;">May: 2.49M net inflow</span></div>
+    </div>
+    <div class="eq-op">−</div>
+    <div class="eq-block eq-out">
+      <div class="eq-num">8.9M</div>
+      <div class="eq-lbl">Ordinances performed YTD</div>
+    </div>
+    <div class="eq-op">=</div>
+    <div class="eq-block eq-res" style="background:var(--fs-green-dark);">
+      <div class="eq-num" style="color:var(--fs-green-mid);font-size:36px;">74.1M</div>
+      <div class="eq-lbl" style="color:var(--fs-green-mid);">Current supply (1.5M above start)</div>
+    </div>
+  </div>
+
+  <div style="font-family:'Arial',sans-serif;font-size:13px;text-transform:uppercase;letter-spacing:0.08em;color:var(--muted);margin-bottom:16px;">Three things leadership needs to know this month</div>
+
+  <div class="three-things">
+    <div class="thing-card thing-green">
+      <h3>🟢 Supply growing above starting point</h3>
+      <p>The current supply stands at 74.1M, up 1.5M from 72.6M on January 1. New ORN inflow is now exceeding ordinances performed. Our automation effort and User Activity initiatives continue to strengthen the supply trajectory for 2026.</p>
+    </div>
+    <div class="thing-card thing-amber">
+      <h3>🟡 Measurement systems improving</h3>
+      <p>We have identified specific gaps and have a clear plan to close them (July internal reconciliation, August data lake). Rock #6 (New ORN Reporting Data) is on track to provide accurate, attributed reporting by end of Q3.</p>
+    </div>
+    <div class="thing-card thing-green">
+      <h3>🟢 ORN Pipeline Progress</h3>
+      <p>A new AI-based full-text transcription system went live June 1. Automated ATB processing has loaded all historical records and Family Tree data into the Reference Tree for evaluation. We expect to complete the ATB runtime system load of the current FamilySearch tree by July 31. End-to-end testing is targeted to be complete by September 30. We are confirming with Content Access which collections will be prioritized for ATB processing, Content Access forecast having that complete by August 1.</p>
+    </div>
+  </div>
+
+  <div class="exec-summary">
+    <h3>Executive Summary Statement</h3>
+    <p>We are producing ORNs and making strong pipeline progress. Our updated measurements show 10.4M YTD (33% of goal) with supply now 1.5M above starting point. While measurement systems are still improving, the trajectory is positive and our automation effort is on track for Q3 delivery.</p>
+    <p>Overall status remains 🟡 yellow, generating sufficient gross supply at a rate that outpaces ordinance performance and technology to be completed is why we remained yellow. Transcription system went live June 1 (Rock #1 complete). ORN reporting PoC (Data Lake) completed (Rock #6). Production by July 31.</p>
+    <p>We are encouraged by the progress of our Execution Teams and their accountability.</p>
+  </div>
+</div>
+
+<!-- SECTION 2: SUPPLY SOURCES -->
+<div id="s2" class="section-panel">
+  <div class="section-title">Supply Sources — 3 Execution Teams</div>
+  <div class="section-sub">ORN supply is generated through five primary sources. These sources are now coordinated by three Execution Teams. Each ET manages one or more supply sources and is accountable for delivery. Select any ET to see which sources it coordinates and anticipated results.</div>
+
+  <table style="width:100%;border-collapse:collapse;font-family:'Arial',sans-serif;font-size:14px;margin-bottom:24px;background:white;border:1px solid var(--border);border-radius:8px;overflow:hidden;">
+    <thead>
+      <tr style="background:var(--slate-light);">
+        <th style="text-align:left;padding:12px 16px;font-weight:700;color:var(--slate);border-bottom:2px solid var(--slate-mid);">Execution Team</th>
+        <th style="text-align:left;padding:12px 16px;font-weight:700;color:var(--slate);border-bottom:2px solid var(--slate-mid);">Type</th>
+        <th style="text-align:right;padding:12px 16px;font-weight:700;color:var(--slate);border-bottom:2px solid var(--slate-mid);">Original Goal</th>
+        <th style="text-align:right;padding:12px 16px;font-weight:700;color:var(--slate);border-bottom:2px solid var(--slate-mid);">YTD Actual</th>
+        <th style="text-align:right;padding:12px 16px;font-weight:700;color:var(--slate);border-bottom:2px solid var(--slate-mid);">% of Goal</th>
+        <th style="text-align:right;padding:12px 16px;font-weight:700;color:var(--slate);border-bottom:2px solid var(--slate-mid);">Anticipated Results</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr style="border-bottom:1px solid var(--border);">
+        <td style="padding:12px 16px;font-weight:600;">User Activity</td>
+        <td style="padding:12px 16px;color:var(--muted);">Organic Work</td>
+        <td style="padding:12px 16px;text-align:right;font-weight:600;">23M</td>
+        <td style="padding:12px 16px;text-align:right;font-weight:600;color:var(--amber);">5.32M</td>
+        <td style="padding:12px 16px;text-align:right;color:var(--amber);">23%</td>
+        <td style="padding:12px 16px;text-align:right;font-weight:600;color:var(--fs-green-dark);">14M</td>
+      </tr>
+      <tr style="border-bottom:1px solid var(--border);background:var(--canvas);">
+        <td style="padding:12px 16px;font-weight:600;">Managed Workforce Activity</td>
+        <td style="padding:12px 16px;color:var(--muted);">Back-Office Work</td>
+        <td style="padding:12px 16px;text-align:right;font-weight:600;">5M</td>
+        <td style="padding:12px 16px;text-align:right;font-weight:600;color:var(--amber);">5.09M</td>
+        <td style="padding:12px 16px;text-align:right;color:var(--fs-green-dark);">102%</td>
+        <td style="padding:12px 16px;text-align:right;font-weight:600;color:var(--fs-green-dark);">5M</td>
+      </tr>
+      <tr style="border-bottom:1px solid var(--border);">
+        <td style="padding:12px 16px;font-weight:600;">Automated Tree Building</td>
+        <td style="padding:12px 16px;color:var(--muted);">Back-Office Work</td>
+        <td style="padding:12px 16px;text-align:right;font-weight:600;">4M</td>
+        <td style="padding:12px 16px;text-align:right;font-weight:600;color:var(--muted);">0M</td>
+        <td style="padding:12px 16px;text-align:right;color:var(--muted);">0%</td>
+        <td style="padding:12px 16px;text-align:right;font-weight:600;color:var(--fs-green-dark);">13M</td>
+      </tr>
+      <tr style="border-top:2px solid var(--slate-mid);">
+        <td style="padding:12px 16px;font-weight:700;">Total</td>
+        <td style="padding:12px 16px;"></td>
+        <td style="padding:12px 16px;text-align:right;font-weight:700;color:var(--slate);">32M</td>
+        <td style="padding:12px 16px;text-align:right;font-weight:700;color:var(--amber);">10.41M*</td>
+        <td style="padding:12px 16px;text-align:right;font-weight:700;color:var(--amber);">33%</td>
+        <td style="padding:12px 16px;text-align:right;font-weight:700;color:var(--slate);">32M</td>
+      </tr>
+    </tbody>
+  </table>
+
+  <div class="tap-hint">Select a row to expand ↓</div>
+
+  <div class="et-list">
+
+    <div class="et-card" onclick="toggleET(this)">
+      <div class="et-header">
+        <div>
+          <div class="et-name">User Activity</div>
+          <div class="et-type">Organic Work — Coordinates 1 supply source: Members & genealogists building trees</div>
+        </div>
+        <div class="et-metric">
+          <div class="et-metric-label">YTD / Goal</div>
+          <div class="et-metric-value" style="color:var(--amber);">5.32M</div>
+          <div class="et-metric-sub">of 23M · 23%</div>
+        </div>
+        <div class="et-metric">
+          <div class="et-metric-label">Anticipated</div>
+          <div class="et-metric-value" style="color:var(--fs-green-dark);">14M</div>
+          <div class="et-metric-sub">revised · 34%</div>
+        </div>
+      </div>
+      <div class="et-track"><div class="et-fill" style="width:23%;background:var(--amber);"></div></div>
+      <div class="et-detail">
+        <p style="font-family:'Arial',sans-serif;font-size:14px;font-weight:700;color:var(--slate);margin-bottom:8px;">Supply Source Coordinated:</p>
+        <p style="font-family:'Arial',sans-serif;font-size:15px;color:var(--text);line-height:1.6;margin-bottom:12px;"><strong>Members & genealogists building trees</strong> — Direct entry, hint resolution, source linking, duplicate resolution by members, genealogists, and volunteers building the FamilySearch Tree.</p>
+        <p style="font-family:'Arial',sans-serif;font-size:15px;color:var(--text);line-height:1.6;margin-bottom:12px;">User Activity is at 5.32M YTD — 23% of the 23M annual goal. Two structural factors explain the gap: (1) record visibility flat at 4.1B for 10+ months due to Themis rights changeover; (2) non-replicable 2025 measurement spikes inflated the baseline.</p>
+        <p style="font-family:'Arial',sans-serif;font-size:14px;font-weight:700;color:var(--slate);margin-top:14px;margin-bottom:8px;">User Trees vs FamilySearch Tree Analysis:</p>
+        <p style="font-family:'Arial',sans-serif;font-size:15px;color:var(--text);line-height:1.6;margin-bottom:12px;">A question has been raised about whether active tree builders ("forest builders") may be choosing to upload names to user trees rather than to the FamilySearch Tree, thereby reducing ORN production. The data does not support this concern. The dominant source of names being added to user trees is WikiTree (Content Archaeology) — an organizational bulk upload accounting for 40.1M names, approximately 82% of all names uploaded to user trees over the period reviewed. This represents a completely different segment with no overlap with regular members, the general public, or forest builders. User tree growth is being driven by organizational content pipelines, not a behavioral shift among active tree builders.</p>
+        <p style="font-family:'Arial',sans-serif;font-size:15px;color:var(--text);line-height:1.6;margin-bottom:12px;">A full hint refresh is underway (data exports from CDS, SLS, Trees, and LLS in progress; estimated completion July-August), which will incorporate all record updates since 2024. Additionally, we are actively engaging homelands and advancing 13 User Activity initiatives across Now / Near / Build horizons. Anticipated results: 14M based on current trajectory and these initiatives.</p>
+        <p style="font-family:'Arial',sans-serif;font-size:14px;font-weight:700;color:var(--slate);margin-bottom:8px;margin-top:16px;">Sub-channels within this source:</p>
+        <table style="width:100%;border-collapse:collapse;font-family:'Arial',sans-serif;font-size:13px;margin-top:12px;">
+          <thead>
+            <tr style="background:var(--fs-green-light);">
+              <th style="text-align:left;padding:7px 10px;font-weight:700;color:var(--fs-green-dark);border-bottom:2px solid var(--fs-green);">Sub-channel</th>
+              <th style="text-align:left;padding:7px 10px;font-weight:700;color:var(--fs-green-dark);border-bottom:2px solid var(--fs-green);">Description</th>
+              <th style="text-align:right;padding:7px 10px;font-weight:700;color:var(--fs-green-dark);border-bottom:2px solid var(--fs-green);">Original Goal</th>
+              <th style="text-align:right;padding:7px 10px;font-weight:700;color:var(--fs-green-dark);border-bottom:2px solid var(--fs-green);">YTD Actual</th>
+              <th style="text-align:right;padding:7px 10px;font-weight:700;color:var(--fs-green-dark);border-bottom:2px solid var(--fs-green);">Anticipated</th>
+            </tr>
+          </thead>
+          <tbody>
+            <tr style="border-bottom:1px solid var(--border);">
+              <td style="padding:7px 10px;font-weight:600;">Source linker</td>
+              <td style="padding:7px 10px;color:var(--muted);">Attaching historical records to tree persons using the source linker tool</td>
+              <td style="padding:7px 10px;text-align:right;color:var(--muted);">—</td>
+              <td style="padding:7px 10px;text-align:right;font-weight:600;">2.1M</td>
+              <td style="padding:7px 10px;text-align:right;color:var(--muted);">6M</td>
+            </tr>
+            <tr style="border-bottom:1px solid var(--border);background:var(--canvas);">
+              <td style="padding:7px 10px;font-weight:600;">Tree person</td>
+              <td style="padding:7px 10px;color:var(--muted);">Adding individual persons directly to the FamilySearch Tree</td>
+              <td style="padding:7px 10px;text-align:right;color:var(--muted);">—</td>
+              <td style="padding:7px 10px;text-align:right;font-weight:600;">2.1M</td>
+              <td style="padding:7px 10px;text-align:right;color:var(--muted);">5M</td>
+            </tr>
+            <tr style="border-bottom:1px solid var(--border);">
+              <td style="padding:7px 10px;font-weight:600;">Tree pedigree</td>
+              <td style="padding:7px 10px;color:var(--muted);">Adding multiple generations through pedigree view</td>
+              <td style="padding:7px 10px;text-align:right;color:var(--muted);">—</td>
+              <td style="padding:7px 10px;text-align:right;font-weight:600;">219K</td>
+              <td style="padding:7px 10px;text-align:right;color:var(--muted);">1M</td>
+            </tr>
+            <tr style="border-bottom:1px solid var(--border);background:var(--canvas);">
+              <td style="padding:7px 10px;font-weight:600;">Guided Tree</td>
+              <td style="padding:7px 10px;color:var(--muted);">Member 4-generation connection experience</td>
+              <td style="padding:7px 10px;text-align:right;color:var(--muted);">—</td>
+              <td style="padding:7px 10px;text-align:right;font-weight:600;">15K</td>
+              <td style="padding:7px 10px;text-align:right;color:var(--muted);">0.6M</td>
+            </tr>
+            <tr style="border-bottom:1px solid var(--border);">
+              <td style="padding:7px 10px;font-weight:600;">Other ways</td>
+              <td style="padding:7px 10px;color:var(--muted);">Other methods including hint resolution, duplicate resolution, imports</td>
+              <td style="padding:7px 10px;text-align:right;color:var(--muted);">—</td>
+              <td style="padding:7px 10px;text-align:right;font-weight:600;">812K</td>
+              <td style="padding:7px 10px;text-align:right;color:var(--muted);">1.4M</td>
+            </tr>
+            <tr style="border-top:2px solid var(--fs-green);">
+              <td style="padding:7px 10px;font-weight:700;">Total</td>
+              <td style="padding:7px 10px;"></td>
+              <td style="padding:7px 10px;text-align:right;font-weight:700;color:var(--fs-green-dark);">23M</td>
+              <td style="padding:7px 10px;text-align:right;font-weight:700;color:var(--fs-green-dark);">5.32M</td>
+              <td style="padding:7px 10px;text-align:right;font-weight:700;color:var(--fs-green-dark);">14M</td>
+            </tr>
+          </tbody>
+        </table>
+        <p style="font-family:'Arial',sans-serif;font-size:12px;color:var(--muted);font-style:italic;margin-top:8px;">Note: Lever 3 cannot be measured and is excluded from these numbers. YTD data is current through end of May 2026.</p>
+      </div>
+    </div>
+
+    <div class="et-card" onclick="toggleET(this)">
+      <div class="et-header">
+        <div>
+          <div class="et-name">Managed Workforce Activity</div>
+          <div class="et-type">Back-Office Work — Coordinates 2 supply sources: Research teams qualifying names & Connecting members to qualified names</div>
+        </div>
+        <div class="et-metric">
+          <div class="et-metric-label">YTD / Goal</div>
+          <div class="et-metric-value" style="color:var(--fs-green-dark);">5.09M</div>
+          <div class="et-metric-sub">of 5M · 102%</div>
+        </div>
+        <div class="et-metric">
+          <div class="et-metric-label">Anticipated</div>
+          <div class="et-metric-value" style="color:var(--fs-green-dark);">5M</div>
+          <div class="et-metric-sub">exceeding goal</div>
+        </div>
+      </div>
+      <div class="et-track"><div class="et-fill" style="width:100%;background:var(--fs-green);"></div></div>
+      <div class="et-detail">
+        <p style="font-family:'Arial',sans-serif;font-size:14px;font-weight:700;color:var(--slate);margin-bottom:8px;">Supply Sources Coordinated:</p>
+        <p style="font-family:'Arial',sans-serif;font-size:15px;color:var(--text);line-height:1.6;margin-bottom:8px;"><strong>1. Research teams qualifying names (Yellow-to-Green)</strong> — BYU RLL, Pathway, VROC, and missionary teams converting yellow names to green.</p>
+        <p style="font-family:'Arial',sans-serif;font-size:15px;color:var(--text);line-height:1.6;margin-bottom:12px;"><strong>2. Connecting members to qualified names</strong> — Linking qualified names to living members through diaspora and regional connection pilots.</p>
+        <p style="font-family:'Arial',sans-serif;font-size:15px;color:var(--text);line-height:1.6;margin-bottom:12px;">Managed Workforce Activity is producing at a steady rate — 5.09M YTD (1.74M attributable + 3.35M residual), 102% of the combined 5M annual goal (4M Y2G + 1M Connect to Member).</p>
+        <p style="font-family:'Arial',sans-serif;font-size:14px;font-weight:700;color:var(--slate);margin-top:14px;margin-bottom:8px;">Current Status:</p>
+        <p style="font-family:'Arial',sans-serif;font-size:15px;color:var(--text);line-height:1.6;margin-bottom:12px;">Managed Workforce Y2G delivered 0.16M in May, bringing YTD to 1.7M (38% of the 4M annual goal). Connect to Members (Lever 3) is shown as ~3.35M (net), reflecting a residual that includes duplicates currently under resolution. Workforces are transitioning from RTM hint files to Match hints files. A Proposal for a Centralized Distribution Tool is now in hand, which will streamline ORN delivery to temples and reduce manual coordination while improving release velocity.</p>
+        <p style="font-family:'Arial',sans-serif;font-size:14px;font-weight:700;color:var(--slate);margin-bottom:8px;margin-top:16px;">Sub-channels within these sources:</p>
+        <table style="width:100%;border-collapse:collapse;font-family:'Arial',sans-serif;font-size:13px;margin-top:12px;">
+          <thead>
+            <tr style="background:var(--amber-light);">
+              <th style="text-align:left;padding:7px 10px;font-weight:700;color:var(--amber);border-bottom:2px solid var(--amber);">Sub-channel</th>
+              <th style="text-align:left;padding:7px 10px;font-weight:700;color:var(--amber);border-bottom:2px solid var(--amber);">Description</th>
+              <th style="text-align:right;padding:7px 10px;font-weight:700;color:var(--amber);border-bottom:2px solid var(--amber);">Original Goal</th>
+              <th style="text-align:right;padding:7px 10px;font-weight:700;color:var(--amber);border-bottom:2px solid var(--amber);">YTD Actual</th>
+              <th style="text-align:right;padding:7px 10px;font-weight:700;color:var(--amber);border-bottom:2px solid var(--amber);">Anticipated</th>
+            </tr>
+          </thead>
+          <tbody>
+            <tr style="border-bottom:1px solid var(--border);">
+              <td style="padding:7px 10px;font-weight:600;">Y2G (VROC, etc.)</td>
+              <td style="padding:7px 10px;color:var(--muted);">Virtual Record and Ordinance Center missionaries & BYU Pathway students qualifying yellow names to green</td>
+              <td style="padding:7px 10px;text-align:right;color:var(--muted);">4M</td>
+              <td style="padding:7px 10px;text-align:right;font-weight:600;">1.23M</td>
+              <td style="padding:7px 10px;text-align:right;color:var(--muted);">2M</td>
+            </tr>
+            <tr style="border-bottom:1px solid var(--border);background:var(--canvas);">
+              <td style="padding:7px 10px;font-weight:600;">RLL (automation)</td>
+              <td style="padding:7px 10px;color:var(--muted);">BYU Record Linking Lab automated qualification processes</td>
+              <td style="padding:7px 10px;text-align:right;color:var(--muted);">—</td>
+              <td style="padding:7px 10px;text-align:right;font-weight:600;">0.51M</td>
+              <td style="padding:7px 10px;text-align:right;color:var(--muted);">2M</td>
+            </tr>
+            <tr style="border-bottom:1px solid var(--border);">
+              <td style="padding:7px 10px;font-weight:600;">Connect to Member</td>
+              <td style="padding:7px 10px;color:var(--muted);">Linking qualified names to living members through diaspora and regional pilots (shown as net residual)</td>
+              <td style="padding:7px 10px;text-align:right;color:var(--muted);">1M</td>
+              <td style="padding:7px 10px;text-align:right;font-weight:600;">~3.35M*</td>
+              <td style="padding:7px 10px;text-align:right;color:var(--muted);">1M</td>
+            </tr>
+            <tr style="border-top:2px solid var(--amber);">
+              <td style="padding:7px 10px;font-weight:700;">Total</td>
+              <td style="padding:7px 10px;"></td>
+              <td style="padding:7px 10px;text-align:right;font-weight:700;color:var(--amber);">5M</td>
+              <td style="padding:7px 10px;text-align:right;font-weight:700;color:var(--amber);">5.09M</td>
+              <td style="padding:7px 10px;text-align:right;font-weight:700;color:var(--amber);">5M</td>
+            </tr>
+          </tbody>
+        </table>
+        <p style="font-family:'Arial',sans-serif;font-size:12px;color:var(--muted);font-style:italic;margin-top:8px;">Note: Lever 3 cannot be measured and is excluded from these numbers. YTD data is current through end of May 2026.</p>
+      </div>
+    </div>
+
+    <div class="et-card" onclick="toggleET(this)">
+      <div class="et-header">
+        <div>
+          <div class="et-name">Automated Tree Building</div>
+          <div class="et-type">Back-Office Work — Coordinates 2 supply sources: External genealogy records & Automated pipeline building the tree</div>
+        </div>
+        <div class="et-metric">
+          <div class="et-metric-label">YTD / Goal</div>
+          <div class="et-metric-value" style="color:var(--muted);">0M</div>
+          <div class="et-metric-sub">of 4M · 0%</div>
+        </div>
+        <div class="et-metric">
+          <div class="et-metric-label">Anticipated</div>
+          <div class="et-metric-value" style="color:var(--fs-green-dark);">13M</div>
+          <div class="et-metric-sub">H2 delivery</div>
+        </div>
+      </div>
+      <div class="et-track"><div class="et-fill" style="width:0%;background:var(--muted);"></div></div>
+      <div class="et-detail">
+        <p style="font-family:'Arial',sans-serif;font-size:14px;font-weight:700;color:var(--slate);margin-bottom:8px;">Supply Sources Coordinated:</p>
+        <p style="font-family:'Arial',sans-serif;font-size:15px;color:var(--text);line-height:1.6;margin-bottom:8px;"><strong>1. External genealogy records</strong> — Books, organization trees, and lineage-linked records from third-party sources requiring legal clearance.</p>
+        <p style="font-family:'Arial',sans-serif;font-size:15px;color:var(--text);line-height:1.6;margin-bottom:12px;"><strong>2. Automated pipeline building the tree</strong> — Reference Tree and AI-powered name production through automated tree builder (ATB) processing.</p>
+        <p style="font-family:'Arial',sans-serif;font-size:15px;color:var(--text);line-height:1.6;margin-bottom:12px;">Zero ORNs YTD — delivery targeted for second half of 2026. Full-text transcription went live June 1. Reference Tree has been populated with Family Tree and User Tree data. End-to-end testing targeted for October.</p>
+        <p style="font-family:'Arial',sans-serif;font-size:14px;font-weight:700;color:var(--slate);margin-top:14px;margin-bottom:8px;">Recent Technical Milestones:</p>
+        <ul style="font-family:'Arial',sans-serif;font-size:15px;color:var(--text);line-height:1.6;margin-left:20px;margin-bottom:12px;">
+          <li>ACE system (LLM-based transcription) went live on June 1 — Rock #1 is complete</li>
+          <li>Vector database stood up and M38 finished vectorizing</li>
+          <li>Jon Morrey stated the team believes existing indexed content, plus user trees and genealogies, is sufficient to hit the 10M stretch goal even without additional content runs</li>
+        </ul>
+        <p style="font-family:'Arial',sans-serif;font-size:14px;font-weight:700;color:var(--slate);margin-top:14px;margin-bottom:8px;">Important Supply Plan Update:</p>
+        <p style="font-family:'Arial',sans-serif;font-size:15px;color:var(--text);line-height:1.6;margin-bottom:12px;">Jiapu (China) and Jokbo (Korea) lineage-linked genealogies confirmed to not yield ORNs in 2026. This reduces the projected external genealogies contribution. Technology readiness for User Tree ORN qualification remains in progress.</p>
+        <p style="font-family:'Arial',sans-serif;font-size:15px;color:var(--text);line-height:1.6;margin-bottom:12px;">Anticipated: 13M based on Reference Tree stretch goal and external source clearances.</p>
+        <p style="font-family:'Arial',sans-serif;font-size:14px;font-weight:700;color:var(--slate);margin-bottom:8px;margin-top:16px;">Sub-channels within these sources:</p>
+        <table style="width:100%;border-collapse:collapse;font-family:'Arial',sans-serif;font-size:13px;margin-top:12px;">
+          <thead>
+            <tr style="background:var(--slate-light);">
+              <th style="text-align:left;padding:7px 10px;font-weight:700;color:var(--slate);border-bottom:2px solid var(--slate-mid);">Sub-channel</th>
+              <th style="text-align:left;padding:7px 10px;font-weight:700;color:var(--slate);border-bottom:2px solid var(--slate-mid);">Description</th>
+              <th style="text-align:right;padding:7px 10px;font-weight:700;color:var(--slate);border-bottom:2px solid var(--slate-mid);">Original Goal</th>
+              <th style="text-align:right;padding:7px 10px;font-weight:700;color:var(--slate);border-bottom:2px solid var(--slate-mid);">YTD Actual</th>
+              <th style="text-align:right;padding:7px 10px;font-weight:700;color:var(--slate);border-bottom:2px solid var(--slate-mid);">Anticipated</th>
+            </tr>
+          </thead>
+          <tbody>
+            <tr style="border-bottom:1px solid var(--border);">
+              <td style="padding:7px 10px;font-weight:600;">Books</td>
+              <td style="padding:7px 10px;color:var(--muted);">German, French, USA genealogy books processed through Content Archaeology</td>
+              <td style="padding:7px 10px;text-align:right;color:var(--muted);">1M</td>
+              <td style="padding:7px 10px;text-align:right;font-weight:600;">0</td>
+              <td style="padding:7px 10px;text-align:right;color:var(--muted);">3M</td>
+            </tr>
+            <tr style="border-bottom:1px solid var(--border);background:var(--canvas);">
+              <td style="padding:7px 10px;font-weight:600;">Organizations</td>
+              <td style="padding:7px 10px;color:var(--muted);">Iceland, Quebec/PRDH, CBG Netherlands, Linklives Denmark organization trees</td>
+              <td style="padding:7px 10px;text-align:right;color:var(--muted);">0M</td>
+              <td style="padding:7px 10px;text-align:right;font-weight:600;">0</td>
+              <td style="padding:7px 10px;text-align:right;color:var(--muted);">1M</td>
+            </tr>
+            <tr style="border-bottom:1px solid var(--border);">
+              <td style="padding:7px 10px;font-weight:600;">Lineage-Linked Gen.</td>
+              <td style="padding:7px 10px;color:var(--muted);">Jiapu (China) and Jokbo (Korea) — confirmed to not yield ORNs in 2026</td>
+              <td style="padding:7px 10px;text-align:right;color:var(--muted);">3M</td>
+              <td style="padding:7px 10px;text-align:right;font-weight:600;">0</td>
+              <td style="padding:7px 10px;text-align:right;color:var(--muted);">0</td>
+            </tr>
+            <tr style="border-bottom:1px solid var(--border);background:var(--canvas);">
+              <td style="padding:7px 10px;font-weight:600;">Reference Tree</td>
+              <td style="padding:7px 10px;color:var(--muted);">AI-powered automated tree builder (ATB) processing Family Tree and User Tree data</td>
+              <td style="padding:7px 10px;text-align:right;color:var(--muted);">0M</td>
+              <td style="padding:7px 10px;text-align:right;font-weight:600;">0</td>
+              <td style="padding:7px 10px;text-align:right;color:var(--muted);">9M</td>
+            </tr>
+            <tr style="border-top:2px solid var(--slate-mid);">
+              <td style="padding:7px 10px;font-weight:700;">Total</td>
+              <td style="padding:7px 10px;"></td>
+              <td style="padding:7px 10px;text-align:right;font-weight:700;color:var(--slate);">4M</td>
+              <td style="padding:7px 10px;text-align:right;font-weight:700;color:var(--slate);">0M</td>
+              <td style="padding:7px 10px;text-align:right;font-weight:700;color:var(--slate);">13M</td>
+            </tr>
+          </tbody>
+        </table>
+      </div>
+    </div>
+
+  </div>
+</div>
+
+<!-- SECTION 3: BIG ROCKS & PROGRESS -->
+<div id="s3" class="section-panel">
+  <div class="section-title">Big Rocks & Progress</div>
+  <div class="section-sub">The Big Rocks are the major delivery commitments that determine whether we hit 82M this year. Each shows what it enables, its status, and delivery target. Select any rock to see current status and details.</div>
+
+  <div class="milestone-timeline">
+    <div class="mt-label">Critical path — second half of 2026 milestones</div>
+    <div class="mt-track">
+      <div class="mt-item">
+        <div class="mt-dot mt-dot-done"></div>
+        <div class="mt-month">May</div>
+        <div class="mt-events">Transcription PoC ✓ · Reporting PoC ✓</div>
+      </div>
+      <div class="mt-item">
+        <div class="mt-dot mt-dot-done"></div>
+        <div class="mt-month">June</div>
+        <div class="mt-events">ACE transcription live ✓</div>
+      </div>
+      <div class="mt-item">
+        <div class="mt-dot mt-dot-near"></div>
+        <div class="mt-month">July</div>
+        <div class="mt-events">Peru republication · ORN Runtime · Reconciliation</div>
+      </div>
+      <div class="mt-item">
+        <div class="mt-dot mt-dot-near"></div>
+        <div class="mt-month">August</div>
+        <div class="mt-events">Data lake live · Hint refresh · Vector DB reload</div>
+      </div>
+      <div class="mt-item">
+        <div class="mt-dot mt-dot-near"></div>
+        <div class="mt-month">October</div>
+        <div class="mt-events">End-to-end pipeline test for production LIVE Reference Tree and ATB processing</div>
+      </div>
+      <div class="mt-item">
+        <div class="mt-dot mt-dot-far"></div>
+        <div class="mt-month">December</div>
+        <div class="mt-events">Reference Tree ORNs live · Year-end reporting</div>
+      </div>
+    </div>
+  </div>
+
+  <div class="tap-hint">Select a rock to expand ↓</div>
+
+  <div class="rock-list">
+
+    <div class="rock-card" onclick="toggleRock(this)">
+      <div class="rock-header">
+        <div class="rock-stripe" style="background:var(--fs-green);"></div>
+        <div>
+          <div class="rock-title">LLM-Based Content Extraction</div>
+          <div class="rock-subtitle">Rock #1 · AI reads historical records with high accuracy</div>
+        </div>
+        <div class="rock-status">
+          <span class="rock-status-badge status-green">✓ Complete</span>
+        </div>
+      </div>
+      <div class="rock-body">
+        <p>ACE system live as of June 1 (phase 1 complete). TWIX (transcription system) delivered to production with redaction quality measures. Phase 2: Image level redaction in progress with Peru republication. Phase 3: Field level redaction, on track. Team is currently tuning quality ("quality hill climbing") before running large volumes. Production pipeline ingestion is underway.</p>
+      </div>
+    </div>
+
+    <div class="rock-card" onclick="toggleRock(this)">
+      <div class="rock-header">
+        <div class="rock-stripe" style="background:var(--amber);"></div>
+        <div>
+          <div class="rock-title">Continuously Updatable ATB at Scale</div>
+          <div class="rock-subtitle">Rock #2 · Reference Tree updates in real time</div>
+        </div>
+        <div class="rock-status">
+          <span class="rock-status-badge status-amber">🟡 Risks exist</span>
+        </div>
+      </div>
+      <div class="rock-body">
+        <p>New technology successfully loaded with all historical records and Family Tree data. Next full reload (including User Trees) scheduled for mid-August.</p>
+        <p><strong>Primary Yellow Risk:</strong> PID-history tracking requirement recently discovered — not yet fully scoped; this is the primary yellow risk. Team believes existing indexed content is sufficient to reach the 10M stretch goal.</p>
+        <p><strong>Key Technical Achievement:</strong> The vector database was stood up and M38 finished vectorizing. Jon Morrey stated the team believes existing indexed content, plus user trees and genealogies, is sufficient to hit the 10M stretch goal even without additional content runs.</p>
+      </div>
+    </div>
+
+    <div class="rock-card" onclick="toggleRock(this)">
+      <div class="rock-header">
+        <div class="rock-stripe" style="background:var(--red);"></div>
+        <div>
+          <div class="rock-title">User Activity Strategy Development</div>
+          <div class="rock-subtitle">Rock #3 · Increases member & genealogist tree building</div>
+        </div>
+        <div class="rock-status">
+          <span class="rock-status-badge status-red">🔴 Critical risk</span>
+        </div>
+      </div>
+      <div class="rock-body">
+        <p>At 23% of goal (5.32M of 23M) through May 31 — single largest risk to the 2026 plan. Two structural lag factors: (1) record visibility flat at 4.1B for 10+ months (Themis rights changeover); (2) non-replicable 2025 measurement spikes. Hints generate automatically from newly published records since 2024 — real forward lever is Content Access publication. Hint refresh in progress (late July–Aug target). 13 User Activity ET initiatives underway across Now / Near / Build horizons. Leadership recalibration on organic growth expectations underway.</p>
+      </div>
+    </div>
+
+    <div class="rock-card" onclick="toggleRock(this)">
+      <div class="rock-header">
+        <div class="rock-stripe" style="background:var(--amber);"></div>
+        <div>
+          <div class="rock-title">ORN Qualification & Release from Reference Tree</div>
+          <div class="rock-subtitle">Rock #4 · Patrons receive ORNs from Reference Tree</div>
+        </div>
+        <div class="rock-status">
+          <span class="rock-status-badge status-amber">🟡 Risks exist</span>
+        </div>
+      </div>
+      <div class="rock-body">
+        <p>Currently resolving user paradigm, critical for overall delivery. Ongoing user studies indicate expectations of continuity with Family Tree/ORN experience. Determining ORN qualification status from Reference Tree, including related-to-member. Implementing solutions to support graph queries for the Reference Tree. Exploring integration points & architecture changes with the Temple & Member Experience SOC.</p>
+      </div>
+    </div>
+
+    <div class="rock-card" onclick="toggleRock(this)">
+      <div class="rock-header">
+        <div class="rock-stripe" style="background:var(--amber);"></div>
+        <div>
+          <div class="rock-title">External Genealogies Legal Clearances</div>
+          <div class="rock-subtitle">Rock #5 · Legal clearances for third-party sources</div>
+        </div>
+        <div class="rock-status">
+          <span class="rock-status-badge status-amber">🟡 Risks exist</span>
+        </div>
+      </div>
+      <div class="rock-body">
+        <p>Legal resolution expected in the near term for remaining sources.</p>
+        <p><strong>Important supply plan update:</strong> Jiapu (China) confirmed as not clearing in 2026. Jokbo (Korea) status has softened – no longer confirmed as zero and remains under assessment. This reduces the projected external genealogies contribution. Technology readiness for User Tree ORN qualification remains in progress. Technology is ready and waiting – legal clearance is the only remaining blocker for sources still in scope.</p>
+      </div>
+    </div>
+
+    <div class="rock-card" onclick="toggleRock(this)">
+      <div class="rock-header">
+        <div class="rock-stripe" style="background:var(--fs-green);"></div>
+        <div>
+          <div class="rock-title">New ORN Reporting Data</div>
+          <div class="rock-subtitle">Rock #6 · Accurate, attributed ORN reporting</div>
+        </div>
+        <div class="rock-status">
+          <span class="rock-status-badge status-green">✓ On track</span>
+        </div>
+      </div>
+      <div class="rock-body">
+        <p>PoC validation of new ORN reporting data complete (Dustin Younberg). This rock is now more critical than originally assessed—current reporting cannot separate gross inflow from outflows or remove duplicates.</p>
+        <p><strong>Timeline:</strong> Internal reconciliation targeting July – Data Lake ready in August.</p>
+        <p>We expect accurate, fully attributed, and deduplicated reporting by the end of Q3 2026.</p>
+      </div>
+    </div>
+
+    <div class="rock-card" onclick="toggleRock(this)">
+      <div class="rock-header">
+        <div class="rock-stripe" style="background:var(--amber);"></div>
+        <div>
+          <div class="rock-title">External Source Ingestion into ATB</div>
+          <div class="rock-subtitle">Rock #7 · Books, records & genealogies flow into pipeline</div>
+        </div>
+        <div class="rock-status">
+          <span class="rock-status-badge status-amber">🟡 Risks exist</span>
+        </div>
+      </div>
+      <div class="rock-body">
+        <p>Trees, User Trees, and lineage-linked genealogies in the record store (SLS) all wired up to ATB. First full testing load scheduled for mid-August. Chinese Jiapu and Korean Jokbo will not yield ORNs in 2026 due to legal and content hurdles. Remaining external sources on track.</p>
+      </div>
+    </div>
+
+    <div class="rock-card" onclick="toggleRock(this)">
+      <div class="rock-header">
+        <div class="rock-stripe" style="background:var(--amber);"></div>
+        <div>
+          <div class="rock-title">Connect Larger Islands in the Family Tree</div>
+          <div class="rock-subtitle">Rock #8 · 880M people unlinked from main tree</div>
+        </div>
+        <div class="rock-status">
+          <span class="rock-status-badge status-amber">⬜ Investigating</span>
+        </div>
+      </div>
+      <div class="rock-body">
+        <p>~880M people not connected to main tree; early investigation underway with Ben Baker.</p>
+        <p><strong>Current Initiatives:</strong> Brazil pilot auto-merging unconnected persons is underway – Proposal for a Duplication Resolution Project now in hand.</p>
+        <p><strong>Potential:</strong> 1M+ ORNs if connections are made.</p>
+      </div>
+    </div>
+
+    <div class="rock-card" onclick="toggleRock(this)">
+      <div class="rock-header">
+        <div class="rock-stripe" style="background:var(--amber);"></div>
+        <div>
+          <div class="rock-title">Coordinate & Optimize the Managed Workforce System</div>
+          <div class="rock-subtitle">Rock #9 · Aligns BYU RLL, Pathway, VROC & missionaries</div>
+        </div>
+        <div class="rock-status">
+          <span class="rock-status-badge status-amber">🟡 Risks exist</span>
+        </div>
+      </div>
+      <div class="rock-body">
+        <p>Workforces at full capacity. Transitioning from RTM hint files to Match hints files. Investment in coordination infrastructure protects long-term throughput.</p>
+        <p><strong>Proposal in Hand:</strong> Centralized Distribution Tool – will streamline ORN delivery to temples, reduce manual coordination, and improve release velocity.</p>
+        <p><strong>ET Structure Evaluation:</strong> Managed Workforce Activity and Connect to Members ET overlap and have been combined into one ET.</p>
+      </div>
+    </div>
+
+  </div>
+</div>
+
+<!-- SECTION 4: SUPPORT NEEDED -->
+<div id="s4" class="section-panel">
+  <div class="section-title">Support Needed from Senior Leadership</div>
+  <div class="section-sub">The following are specific areas where we depend on coordination and support from senior leadership and other parts of the organization. Select any item to see full details.</div>
+  <div class="tap-hint">Select a row to expand ↓</div>
+
+  <div class="dep-list">
+
+    <div class="dep-card" onclick="toggleDep(this)">
+      <div class="dep-header">
+        <div class="dep-header-content">
+          <div class="dep-name">1. Homelands — area manager partnership and member engagement</div>
+          <div class="dep-owner">Ownership: Homelands Directors: Stephen Valentine · Tom Gill · Tamra Stansfield · Eric Leach</div>
+          <div class="dep-need-preview">What we need: Senior leadership engagement with Homelands Directors</div>
+        </div>
+        <div class="dep-priority priority-partnership">Partnership</div>
+      </div>
+      <div class="dep-detail">
+        <div class="dep-what">We have launched several User Activity ET initiatives which depend on strong area manager partnership and homeland engagement for their success — Add What You Know (AWYK) campaigns, genealogist initiatives, priesthood leadership coordination. The ORN team builds the technical infrastructure; Homelands brings the people and field relationships.</div>
+        <div class="dep-consequence">Without active Homeland engagement these initiatives underperform and the hint refresh in July–August produces actionable prompts that no one acts on at scale.</div>
+      </div>
+    </div>
+
+    <div class="dep-card" onclick="toggleDep(this)">
+      <div class="dep-header">
+        <div class="dep-header-content">
+          <div class="dep-name">2. Platform — data lake on schedule for August</div>
+          <div class="dep-owner">Ownership: Platform SOC · Director: Bret Weekes</div>
+          <div class="dep-need-preview">What we need: Protect Platform's August 1 delivery date</div>
+        </div>
+        <div class="dep-priority priority-ontrack">On Track</div>
+      </div>
+      <div class="dep-detail">
+        <div class="dep-what">The new data lake (August 1 target) is the infrastructure that makes accurate, attributed ORN reporting possible. Every decision about goal reallocation, pipeline investment, and member engagement effectiveness depends on this foundation. Rock #6 (New ORN Reporting Data) is on track; continued progress from Platform is required to hold the August date.</div>
+        <div class="dep-consequence">If the data lake slips past August: Year-end reporting will be based on estimated figures, making a definitive 82M assessment difficult.</div>
+      </div>
+    </div>
+
+    <div class="dep-card" onclick="toggleDep(this)">
+      <div class="dep-header">
+        <div class="dep-header-content">
+          <div class="dep-name">3. Content Access — collection optimization data and record republication</div>
+          <div class="dep-owner">Ownership: Content Access SOC · Director: Stephen Valentine</div>
+          <div class="dep-need-preview">What we need: Collection optimization data and ORN yield projections</div>
+        </div>
+        <div class="dep-priority priority-high">High</div>
+      </div>
+      <div class="dep-detail">
+        <div class="dep-what">We have learned an important dependency: we need optimization data from Content Access to know which collections should be reprocessed first and what ORN yield we can expect from them. Record republication will resume as new redaction capabilities come online for collections that have been on the site for some time. New collection data is flowing, but it does not automatically trigger republication of all content — only content that meets current privacy requirements is being published. Hints generate automatically from newly published records, so the rate of record publication directly shapes Forest Builder productivity and new ORN production.</div>
+      </div>
+    </div>
+
+    <div class="dep-card" onclick="toggleDep(this)">
+      <div class="dep-header">
+        <div class="dep-header-content">
+          <div class="dep-name">4. Legal — clearances for remaining External Genealogy sources</div>
+          <div class="dep-owner">Ownership: Office of General Counsel · in coordination with Content Access</div>
+          <div class="dep-need-preview">What we need: Expedite remaining legal clearances</div>
+        </div>
+        <div class="dep-priority priority-high">High</div>
+      </div>
+      <div class="dep-detail">
+        <div class="dep-what">Legal resolution is expected near term for remaining External Genealogy sources. Jiapu (China) is confirmed as not clearing in 2026. Jokbo (Korea) status has softened — no longer confirmed as zero and remains under assessment. Technology is ready and waiting. Legal clearance is the only remaining blocker for sources still in scope.</div>
+        <div class="dep-consequence">If clearances are delayed further: The External Genealogies contribution to 2026 supply reduces below the already-revised projection.</div>
+      </div>
+    </div>
+
+    <div class="dep-card" onclick="toggleDep(this)">
+      <div class="dep-header">
+        <div class="dep-header-content">
+          <div class="dep-name">5. Member Temple Experience — resolve the user paradigm for Reference Tree ORNs</div>
+          <div class="dep-owner">Ownership: MTE SOC · Director: Tom Gill</div>
+          <div class="dep-need-preview">What we need: Cross-SOC alignment session to resolve user paradigm</div>
+        </div>
+        <div class="dep-priority priority-critical">Critical</div>
+      </div>
+      <div class="dep-detail">
+        <div class="dep-what">Active cross-SOC work is underway. Ongoing user studies indicate patron expectations of continuity with the existing Family Tree and ORN experience. We are jointly determining qualification status from the Reference Tree (including related-to-member status) and exploring integration points and architecture changes. Until this is resolved, the automated pipeline cannot deliver ORNs to patrons.</div>
+        <div class="dep-consequence" style="background:var(--red-light);border-left-color:var(--red);color:var(--red);">If user paradigm resolution is not reached before October: The end-to-end pipeline test cannot validate delivery and the 10M stretch goal is at risk.</div>
+      </div>
+    </div>
+
+  </div>
+</div>
+
+<!-- SECTION 5: PROJECT PRIORITIES -->
+<div id="s5" class="section-panel">
+  <div class="section-title">Project Prioritization</div>
+  <div class="section-sub">The following is a summary of projects that are being deprioritized to yield or stop so that critical path items can be completed, as well as initiatives that are being prioritized. In some instances, this is a short-term delay, and others have a longer-term expectation.</div>
+
+  <div class="tap-hint">Select a section to expand ↓</div>
+
+  <div class="priority-section">
+    <div class="priority-card" onclick="togglePriority(this)">
+      <div class="priority-header">
+        <div class="priority-header-left">
+          <div>
+            <span class="priority-title">Prioritizing</span>
+            <span class="priority-count">(13 initiatives)</span>
+          </div>
+          <div class="priority-desc">Critical path items and strategic initiatives receiving focused investment</div>
+        </div>
+        <div class="priority-arrow">▼</div>
+      </div>
+      <div class="priority-list">
+        <ul>
+          <li>External Source Ingestion into ATB – Trees, User Trees, and SLS lineage-linked genealogies wired up to ATB; first full testing load scheduled for mid-August; Jiapu/Jokbo will not yield ORNs in 2026</li>
+          <li>ET structure consolidation – Managed Workforce Activity and Connect to Members ETs have been combined into a single ET to eliminate overlap and improve coordination efficiency</li>
+          <li>Organic Growth strategy development – identified as the clearest portfolio-level risk for 2026; tree experience teams actively investigating initiatives including user tree opportunities and homeland engagement; additional focused leadership sessions planned</li>
+          <li>Evaluation of requirements for SaaS model conversion – enable function operation for business in 2026, technical operations by end of 2027</li>
+          <li>Transcription accuracy processing and reporting</li>
+          <li>IsRelated exception countries resolution</li>
+          <li>Release of ORNs from Reference Tree data — terminology formally adopted ("Reference Tree" replaces "ATBs")</li>
+          <li>Vespa (Vector Database) PoC – supports Continuously Updatable ATB at Scale</li>
+          <li>Tigergraph (Graph Database) PoC – supports Reference Tree Availability & Consumption</li>
+          <li>Duplication Resolution Project – addressing duplicate person records in the tree that block ORN release; cross-ET coordination required</li>
+          <li>Centralized Distribution Tool – streamlining ORN delivery to temples; reduces manual coordination and improves release velocity</li>
+          <li>New ORN Reporting Data (Rock #6) – PoC validation complete; internal reconciliation targeting July, new data lake ready August 1; critical path item for resolving gross/net measurement gaps and enabling accurate Lever 3 reporting</li>
+          <li>ORN Qualification & Release from Reference Tree (Rock #4) – active cross-SOC work with Temple & Member Experience; user paradigm resolution and graph query implementation in progress; timeline to completion unknown</li>
+          <li>Data Lake conversion for reporting - (All teams effected, off Splunk by 4/2027)</li>
+        </ul>
+      </div>
+    </div>
+  </div>
+
+  <div class="priority-section">
+    <div class="priority-card" onclick="togglePriority(this)">
+      <div class="priority-header">
+        <div class="priority-header-left">
+          <div>
+            <span class="priority-title">De-Prioritizing</span>
+            <span class="priority-count">(7 projects)</span>
+          </div>
+          <div class="priority-desc">Must yield to Automated ORN Pipeline development</div>
+        </div>
+        <div class="priority-arrow">▼</div>
+      </div>
+      <div class="priority-list">
+        <ul>
+          <li>ADE work (Research Assistant) - (longer-term pivot as agentic agent work evolves)</li>
+          <li>GIVE work (Patron involvement experiences enhancements) - (longer-term)</li>
+          <li>CDS migration (Remaining conversion of last 300 collections – in ops hands for figuring out what the collections belong to which contract.) - (short-term)</li>
+          <li>LLS migration/Oral Gen (Ogen team working through ingestion to SLS and Correlation; Genealogies backend converted to SLS/User Tree structure) - (short-term)</li>
+          <li>Full text processing for non-ORN republication work previously paused to prioritize LLM-Based Content Extraction for ORN pipeline – now resuming; Peru republication restart targeted July 2026.</li>
+          <li>Temple Subsystem breakdown for Ordinance Tree (defer to 2027)</li>
+          <li>Chinese tree graphing – move to ATB for next generation (short-term while we transition technology to mainstream production systems)</li>
+        </ul>
+      </div>
+    </div>
+  </div>
+</div>
+
+<script>
+  function showSection(id) {
+    document.querySelectorAll('.section-panel').forEach(p => p.classList.remove('active'));
+    document.querySelectorAll('.nav-tab').forEach(t => t.classList.remove('active'));
+    document.getElementById(id).classList.add('active');
+    const tabs = document.querySelectorAll('.nav-tab');
+    const map = {s1:0, s2:1, s3:2, s4:3, s5:4};
+    tabs[map[id]].classList.add('active');
+    window.scrollTo(0, 0);
+  }
+
+  function toggleET(card) {
+    card.classList.toggle('expanded');
+  }
+
+  function toggleRock(card) {
+    card.classList.toggle('open');
+  }
+
+  function toggleDep(card) {
+    card.classList.toggle('expanded');
+  }
+
+  function togglePriority(card) {
+    card.classList.toggle('expanded');
+  }
+</script>
+</body>
+</html>
