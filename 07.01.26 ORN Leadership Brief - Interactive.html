@@ -1803,7 +1803,7 @@
 </div>
 
 <script>
-function showSection(sectionId, updateHash = true) {
+function showSection(sectionId) {
   // Hide all sections
   document.querySelectorAll('.section-panel').forEach(panel => {
     panel.classList.remove('active');
@@ -1826,8 +1826,8 @@ function showSection(sectionId, updateHash = true) {
     activeTab.classList.add('active');
   }
 
-  // Update URL hash if requested
-  if (updateHash) {
+  // Update URL hash (this will work for both button clicks and programmatic calls)
+  if (window.location.hash !== '#' + sectionId) {
     window.location.hash = sectionId;
   }
 
@@ -1850,7 +1850,30 @@ function handleHashChange() {
   if (hash) {
     const validSections = ['summary', 'teams', 'rocks', 'milestones', 'support', 'appendix'];
     if (validSections.includes(hash)) {
-      showSection(hash, false); // false prevents infinite loop
+      // Hide all sections
+      document.querySelectorAll('.section-panel').forEach(panel => {
+        panel.classList.remove('active');
+      });
+
+      // Remove active class from all tabs
+      document.querySelectorAll('.nav-tab').forEach(tab => {
+        tab.classList.remove('active');
+      });
+
+      // Show selected section
+      const section = document.getElementById(hash);
+      if (section) {
+        section.classList.add('active');
+      }
+
+      // Add active class to appropriate tab
+      const activeTab = document.querySelector(`.nav-tab[onclick="showSection('${hash}')"]`);
+      if (activeTab) {
+        activeTab.classList.add('active');
+      }
+
+      // Scroll to top
+      window.scrollTo({top: 0, behavior: 'smooth'});
     }
   }
 }
