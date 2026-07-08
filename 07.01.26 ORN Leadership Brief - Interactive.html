@@ -1815,10 +1815,21 @@ function showSection(sectionId) {
   });
 
   // Show selected section
-  document.getElementById(sectionId).classList.add('active');
+  const section = document.getElementById(sectionId);
+  if (section) {
+    section.classList.add('active');
+  }
 
-  // Add active class to clicked tab
-  event.target.classList.add('active');
+  // Add active class to appropriate tab
+  const activeTab = document.querySelector(`.nav-tab[onclick="showSection('${sectionId}')"]`);
+  if (activeTab) {
+    activeTab.classList.add('active');
+  }
+
+  // Update URL hash (this will work for both button clicks and programmatic calls)
+  if (window.location.hash !== '#' + sectionId) {
+    window.location.hash = sectionId;
+  }
 
   // Scroll to top
   window.scrollTo({top: 0, behavior: 'smooth'});
@@ -1832,6 +1843,46 @@ function toggleCard(header, event) {
   const card = header.closest('.expandable-card');
   card.classList.toggle('expanded');
 }
+
+// Handle initial page load and hash changes
+function handleHashChange() {
+  const hash = window.location.hash.substring(1); // Remove the # character
+  if (hash) {
+    const validSections = ['summary', 'teams', 'rocks', 'milestones', 'support', 'appendix'];
+    if (validSections.includes(hash)) {
+      // Hide all sections
+      document.querySelectorAll('.section-panel').forEach(panel => {
+        panel.classList.remove('active');
+      });
+
+      // Remove active class from all tabs
+      document.querySelectorAll('.nav-tab').forEach(tab => {
+        tab.classList.remove('active');
+      });
+
+      // Show selected section
+      const section = document.getElementById(hash);
+      if (section) {
+        section.classList.add('active');
+      }
+
+      // Add active class to appropriate tab
+      const activeTab = document.querySelector(`.nav-tab[onclick="showSection('${hash}')"]`);
+      if (activeTab) {
+        activeTab.classList.add('active');
+      }
+
+      // Scroll to top
+      window.scrollTo({top: 0, behavior: 'smooth'});
+    }
+  }
+}
+
+// Listen for hash changes (back/forward buttons)
+window.addEventListener('hashchange', handleHashChange);
+
+// Handle initial page load
+window.addEventListener('DOMContentLoaded', handleHashChange);
 </script>
 
 </body>
