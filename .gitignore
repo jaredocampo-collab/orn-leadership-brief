@@ -1,0 +1,17 @@
+# Python virtual environment
+.venv/
+__pycache__/
+*.pyc
+
+# macOS
+.DS_Store
+
+# Temporary files
+*.tmp
+~$*
+
+# Build scripts (keep source files only)
+create_condensed_brief.py
+
+# Word document lock files
+~$*.docx
